@@ -8,8 +8,8 @@ import (
 )
 
 func main() {
-	http.HandleFunc("/cars", handler.Car)
-	http.HandleFunc("/users", handler.User)
+	http.HandleFunc("/cars", handler.GetCarList)
+	http.HandleFunc("/users", handler.GetUserList)
 
 	if err := http.ListenAndServe(":4545", nil); err != nil {
 		log.Fatalf("cant serve server on port 4545, err: %s", err)

@@ -8,7 +8,7 @@ import (
 	"github.com/rezairfanwijaya/app-1.git/response"
 )
 
-func Car(w http.ResponseWriter, r *http.Request) {
+func GetCarList(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusOK)
 	if r.Method != http.MethodGet {

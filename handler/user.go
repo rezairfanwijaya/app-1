@@ -8,7 +8,7 @@ import (
 	"github.com/rezairfanwijaya/app-1.git/response"
 )
 
-func User(w http.ResponseWriter, r *http.Request) {
+func GetUserList(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusOK)
 	if r.Method != http.MethodGet {
