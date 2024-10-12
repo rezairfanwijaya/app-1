@@ -12,6 +12,6 @@ func main() {
 	http.HandleFunc("/users", handler.GetUserList)
 
 	if err := http.ListenAndServe(":4545", nil); err != nil {
-		log.Fatalf("cant serve server on port 4545, err: %s", err)
+		log.Fatalf("failed serve server on port 4545, err: %s", err)
 	}
 }
