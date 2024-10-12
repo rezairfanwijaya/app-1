@@ -5,9 +5,16 @@ import (
 	"net/http"
 
 	"github.com/rezairfanwijaya/app-1.git/handler"
+	"github.com/rezairfanwijaya/app-1.git/response"
 )
 
 func main() {
+	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		w.WriteHeader(http.StatusOK)
+		resp := response.Success{Data: "pong app-1"}
+		res, _ := resp.ToJSON()
+		w.Write(res)
+	})
 	http.HandleFunc("/cars", handler.GetCarList)
 	http.HandleFunc("/users", handler.GetUserList)
 
