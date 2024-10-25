@@ -21,11 +21,23 @@ jobs:
         with:
           version: v1.60
 
-      - name: build executable
-        run: go build -o app1 main.go
+      - name: build golang app
+        run: GOOS=linux go build -o app1 -v
       
       - name: check executable
         run: ls 
+
+      - name: executing remote ssh commands using password
+        uses: appleboy/ssh-action@v1.1.0
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          password: ${{ secrets.PASSWORD }}
+          port: ${{ secrets.PORT }}
+          script: whoami
+        
+
+      
       
 
   
