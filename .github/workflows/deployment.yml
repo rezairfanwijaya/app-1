@@ -23,7 +23,7 @@ jobs:
 
   deployment:
     name: deployment
-    needs: linter checking
+    needs: golang-linter
     runs-on: ubuntu-latest
     steps:
       - name: check dir
