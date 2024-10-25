@@ -4,8 +4,8 @@ on:
   workflow_dispatch:
 
 jobs:
-  golang-linter:
-    name: linter checking
+  deployment:
+    name: deployment
     runs-on: ubuntu-latest
     steps:
       - name: checkout code
@@ -21,13 +21,12 @@ jobs:
         with:
           version: v1.60
 
-  deployment:
-    name: deployment
-    needs: golang-linter
-    runs-on: ubuntu-latest
-    steps:
-      - name: check dir
-        run : ls
+      - name: build executable
+        run: go build -o app1 main.go
+      
+      - name: check executable
+        run: ls 
+      
 
   
     
