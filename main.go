@@ -13,7 +13,7 @@ func main() {
 		w.WriteHeader(http.StatusOK)
 		resp := response.Success{Data: "pong app-1"}
 		res, _ := resp.ToJSON()
-		w.Write(res)
+		_, _ = w.Write(res)
 	})
 	http.HandleFunc("/cars", handler.GetCarList)
 	http.HandleFunc("/users", handler.GetUserList)
