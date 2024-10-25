@@ -8,14 +8,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: checkout code
-      - uses: actions/checkout@v4
+        uses: actions/checkout@v4
 
       - name: setup golang
-      - uses: actions/setup-go@v5
+        uses: actions/setup-go@v5
         with:
           go-version: '1.21'
 
       - name: check liter
-      - uses: golangci/golangci-lint-action@v6
+        uses: golangci/golangci-lint-action@v6
         with:
           version: v1.60
