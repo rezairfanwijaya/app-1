@@ -23,6 +23,7 @@ jobs:
 
   deployment:
     name: deployment
+    needs: linter checking
     runs-on: ubuntu-latest
     steps:
       - name: check dir
