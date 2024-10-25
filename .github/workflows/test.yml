@@ -15,7 +15,7 @@ jobs:
         with:
           go-version: '1.21'
 
-      - name: check liter
+      - name: check linter
         uses: golangci/golangci-lint-action@v6
         with:
           version: v1.60
