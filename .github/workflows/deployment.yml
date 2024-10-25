@@ -28,7 +28,7 @@ jobs:
         run: ls 
 
       - name: executing remote ssh commands using password
-        uses: appleboy/ssh-action@v1.1.0
+        uses: appleboy/ssh-action@v0.1.10
         with:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
