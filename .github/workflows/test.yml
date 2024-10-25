@@ -22,4 +22,4 @@ jobs:
 
       - name: message
         run: |
-          ls
+          echo {{github}}
