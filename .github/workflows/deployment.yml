@@ -7,7 +7,7 @@ on:
       - main
 
 env:
-  APP_NAME: ${{ secret.APP_NAME }}
+  APP_NAME: ${{ secrets.APP_NAME }}
 
 jobs:
   deployment:
