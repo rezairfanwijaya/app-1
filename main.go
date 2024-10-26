@@ -3,6 +3,7 @@ package main
 import (
 	"log"
 	"net/http"
+	"strconv"
 
 	"github.com/gorilla/mux"
 	"github.com/prometheus/client_golang/prometheus"
@@ -23,17 +24,20 @@ func NewResponseWriter(w http.ResponseWriter) *responseWriter {
 
 func init() {
 	_ = prometheus.Register(metric.HTTPRequestTotal)
+	_ = prometheus.Register(metric.ResponseStatus)
 }
 
 func prometheusMiddleware(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		rw := NewResponseWriter(w)
 		next.ServeHTTP(rw, r)
+		statusCode := rw.statusCode
 
 		route := mux.CurrentRoute(r)
 		path, _ := route.GetPathTemplate()
 
-		metric.HTTPRequestTotal.WithLabelValues(path).Inc()
+		metric.ResponseStatus.WithLabelValues(path)
+		metric.HTTPRequestTotal.WithLabelValues(strconv.Itoa(statusCode)).Inc()
 	})
 }
 

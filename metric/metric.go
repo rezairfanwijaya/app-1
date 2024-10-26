@@ -9,3 +9,11 @@ var HTTPRequestTotal = prometheus.NewCounterVec(
 	},
 	[]string{"path"},
 )
+
+var ResponseStatus = prometheus.NewCounterVec(
+	prometheus.CounterOpts{
+		Name: "http_response_status",
+		Help: "this metric will show http response status for each path",
+	},
+	[]string{"status"},
+)
