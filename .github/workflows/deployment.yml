@@ -39,7 +39,7 @@ jobs:
           source: "app1"
           target: ./
 
-      - name: executing remote ssh commands using password
+      - name: restart service
         uses: appleboy/ssh-action@v1.1.0
         with:
           host: ${{ secrets.HOST }}
