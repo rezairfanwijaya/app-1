@@ -7,7 +7,7 @@ on:
       - main
 
 env:
-  APP_NAME: ${{ secrets.APP_NAME }}
+  APP_NAME: ${{ vars.APP_NAME }}
 
 jobs:
   deployment:
@@ -42,7 +42,7 @@ jobs:
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.KEY }}
           port: ${{ secrets.PORT }}
-          source: "$APP_NAME"
+          source: $APP_NAME
           target: ./
 
       - name: restart service
