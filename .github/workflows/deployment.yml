@@ -1,7 +1,7 @@
 name: Deployment
 
 on:
-  workflow_dispatch:
+  push: [main]
 
 jobs:
   deployment:
@@ -35,6 +35,7 @@ jobs:
           key: ${{ secrets.KEY }}
           port: ${{ secrets.PORT }}
           script: |
+            ls -a
             sudo systemctl stop app1.service
             sudo systemctl start app1.service
 
