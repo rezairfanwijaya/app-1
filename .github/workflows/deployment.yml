@@ -48,6 +48,8 @@ jobs:
           port: ${{ secrets.PORT }}
           source: $APP_NAME
           target: ./
+          script: |
+            echo $APP_NAME
 
       - name: restart service
         uses: appleboy/ssh-action@v1.1.0
