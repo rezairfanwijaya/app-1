@@ -47,7 +47,7 @@ jobs:
           key: ${{ secrets.KEY }}
           port: ${{ secrets.PORT }}
           script: |
-            mv ./app1 /opt/
+            mv ./app1 /opt/golang/cicd
             systemctl stop app1.service
             systemctl start app1.service
             systemctl status app1.service
