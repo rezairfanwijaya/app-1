@@ -49,7 +49,7 @@ jobs:
 
       - name: restart service
         uses: appleboy/ssh-action@v1.1.0
-        env: 
+        envs: 
           APP_NAME: ${{ env.APP_NAME }}
         with:
           host: ${{ secrets.HOST }}
