@@ -8,6 +8,7 @@ on:
 
 env:
   APP_NAME: ${{ vars.APP_NAME }}
+  APP_HOST: ${{ vars.APP_HOST }}
 
 jobs:
   deployment:
@@ -63,6 +64,11 @@ jobs:
             systemctl stop $APP_NAME.service
             systemctl start $APP_NAME.service
             systemctl status $APP_NAME.service
+
+      - name: healt check
+        run: | 
+          curl ${{ env.APP_HOST }}/ping
+
 
 
       
