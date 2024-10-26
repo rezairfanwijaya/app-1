@@ -38,7 +38,6 @@ jobs:
           port: ${{ secrets.PORT }}
           source: "app1"
           target: ./
-          script: la
 
       - name: executing remote ssh commands using password
         uses: appleboy/ssh-action@v1.1.0
@@ -48,6 +47,7 @@ jobs:
           key: ${{ secrets.KEY }}
           port: ${{ secrets.PORT }}
           script: |
+            mv ./app1 /opt/
             systemctl stop app1.service
             systemctl start app1.service
             systemctl status app1.service
