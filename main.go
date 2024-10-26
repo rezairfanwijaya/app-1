@@ -36,8 +36,8 @@ func prometheusMiddleware(next http.Handler) http.Handler {
 		route := mux.CurrentRoute(r)
 		path, _ := route.GetPathTemplate()
 
-		metric.ResponseStatus.WithLabelValues(path)
-		metric.HTTPRequestTotal.WithLabelValues(strconv.Itoa(statusCode)).Inc()
+		metric.ResponseStatus.WithLabelValues(strconv.Itoa(statusCode))
+		metric.HTTPRequestTotal.WithLabelValues(path).Inc()
 	})
 }
 
