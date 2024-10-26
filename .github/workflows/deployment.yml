@@ -29,7 +29,7 @@ jobs:
 
       - name: build golang app
         run: |
-        echo build $APP_NAME
+        echo "building $APP_NAME"
         GOOS=linux go build -o $APP_NAME -v
       
       - name: check executable
