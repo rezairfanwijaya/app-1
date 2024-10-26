@@ -39,9 +39,9 @@ func prometheusMiddleware(next http.Handler) http.Handler {
 
 func main() {
 	router := mux.NewRouter()
+	router.Path("/metrics").Handler(promhttp.Handler())
 	router.Use(prometheusMiddleware)
 
-	router.Path("/metrics").Handler(promhttp.Handler())
 	router.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusOK)
 		resp := response.Success{Data: "pong app-1"}
