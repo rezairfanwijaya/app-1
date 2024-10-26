@@ -6,6 +6,9 @@ on:
     brances:
       - main
 
+env:
+  APP_NAME: ${{ secret.APP_NAME }}
+
 jobs:
   deployment:
     name: deployment
@@ -25,7 +28,9 @@ jobs:
           version: v1.60
 
       - name: build golang app
-        run: GOOS=linux go build -o app1 -v
+        run: |
+        echo build $APP_NAME
+        GOOS=linux go build -o $APP_NAME -v
       
       - name: check executable
         run: ls 
@@ -37,7 +42,7 @@ jobs:
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.KEY }}
           port: ${{ secrets.PORT }}
-          source: "app1"
+          source: $APP_NAME
           target: ./
 
       - name: restart service
@@ -48,10 +53,10 @@ jobs:
           key: ${{ secrets.KEY }}
           port: ${{ secrets.PORT }}
           script: |
-            mv ./app1 /opt/golang/cicd/app1
-            systemctl stop app1.service
-            systemctl start app1.service
-            systemctl status app1.service
+            mv ./$APP_NAME /opt/golang/cicd/$APP_NAME
+            systemctl stop $APP_NAME.service
+            systemctl start $APP_NAME.service
+            systemctl status $APP_NAME.service
 
 
       
