@@ -56,8 +56,7 @@ jobs:
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.KEY }}
           port: ${{ secrets.PORT }}
-          envs: 
-            APP_NAME: APP_NAME
+          envs: APP_NAME
           script: | 
             echo "app name $APP_NAME"
             mv ./$APP_NAME /opt/golang/cicd/$APP_NAME
