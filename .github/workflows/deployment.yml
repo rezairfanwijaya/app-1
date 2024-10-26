@@ -39,17 +39,13 @@ jobs:
 
       - name: copy file
         uses: appleboy/scp-action@v0.1.7
-        env: 
-          APP_NAME: ${{ env.APP_NAME }}
         with:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.KEY }}
           port: ${{ secrets.PORT }}
-          source: $APP_NAME
+          source: "${{ env.APP_NAME }}"
           target: ./
-          script: |
-            echo $APP_NAME
 
       - name: restart service
         uses: appleboy/ssh-action@v1.1.0
