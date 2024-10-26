@@ -49,13 +49,13 @@ jobs:
 
       - name: restart service
         uses: appleboy/ssh-action@v1.1.0
-        envs: 
-          APP_NAME: ${{ env.APP_NAME }}
         with:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.KEY }}
           port: ${{ secrets.PORT }}
+          envs: 
+            APP_NAME: ${{ env.APP_NAME }}
           script: | 
             echo "app name $APP_NAME"
             mv ./$APP_NAME /opt/golang/cicd/$APP_NAME
