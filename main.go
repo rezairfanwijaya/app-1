@@ -4,6 +4,7 @@ import (
 	"log"
 	"net/http"
 	"strconv"
+	"time"
 
 	"github.com/gorilla/mux"
 	"github.com/prometheus/client_golang/prometheus"
@@ -38,11 +39,12 @@ func prometheusMiddleware(next http.Handler) http.Handler {
 		path, _ := route.GetPathTemplate()
 
 		timer := prometheus.NewTimer(metric.HTTPDuration.WithLabelValues(path))
-		metric.HTTPResponse.WithLabelValues(
+		hr := metric.HTTPResponse.WithLabelValues(
 			path,
 			strconv.Itoa(statusCode),
 			r.Method,
 		)
+		hr.Observe(float64(time.Since(time.Now())))
 		metric.HTTPRequestTotal.WithLabelValues(path).Inc()
 		timer.ObserveDuration()
 	})
