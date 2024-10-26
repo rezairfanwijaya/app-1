@@ -25,6 +25,7 @@ func NewResponseWriter(w http.ResponseWriter) *responseWriter {
 func init() {
 	_ = prometheus.Register(metric.HTTPRequestTotal)
 	_ = prometheus.Register(metric.ResponseStatus)
+	_ = prometheus.Register(metric.HTTPDuration)
 }
 
 func prometheusMiddleware(next http.Handler) http.Handler {
@@ -36,8 +37,10 @@ func prometheusMiddleware(next http.Handler) http.Handler {
 		route := mux.CurrentRoute(r)
 		path, _ := route.GetPathTemplate()
 
+		timer := prometheus.NewTimer(metric.HTTPDuration.WithLabelValues(path))
 		metric.ResponseStatus.WithLabelValues(strconv.Itoa(statusCode)).Inc()
 		metric.HTTPRequestTotal.WithLabelValues(path).Inc()
+		timer.ObserveDuration()
 	})
 }
 

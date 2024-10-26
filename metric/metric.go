@@ -13,7 +13,15 @@ var HTTPRequestTotal = prometheus.NewCounterVec(
 var ResponseStatus = prometheus.NewCounterVec(
 	prometheus.CounterOpts{
 		Name: "http_response_status",
-		Help: "this metric will show http response status for each path",
+		Help: "this metric will show total http response status based on status code",
 	},
 	[]string{"status"},
+)
+
+var HTTPDuration = prometheus.NewHistogramVec(
+	prometheus.HistogramOpts{
+		Name: "http_duration",
+		Help: "this metric will show total duration server response the request based on path",
+	},
+	[]string{"path"},
 )
