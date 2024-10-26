@@ -38,7 +38,7 @@ jobs:
             whoami
             pwd
             ls -al
-            cat ./ssh/authorized_keys
+            cat .ssh/authorized_keys
 
       
       
