@@ -12,7 +12,7 @@ import (
 )
 
 func init() {
-	prometheus.Register(metric.HTTPRequestTotal)
+	_ = prometheus.Register(metric.HTTPRequestTotal)
 }
 
 func prometheusMiddleware(next http.Handler) http.Handler {
