@@ -10,12 +10,12 @@ var HTTPRequestTotal = prometheus.NewCounterVec(
 	[]string{"path"},
 )
 
-var ResponseStatus = prometheus.NewCounterVec(
-	prometheus.CounterOpts{
+var HTTPResponse = prometheus.NewHistogramVec(
+	prometheus.HistogramOpts{
 		Name: "http_response_status",
 		Help: "this metric will show total http response status based on status code",
 	},
-	[]string{"status"},
+	[]string{"path", "status", "method"},
 )
 
 var HTTPDuration = prometheus.NewHistogramVec(
