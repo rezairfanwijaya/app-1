@@ -29,6 +29,17 @@ jobs:
       - name: check executable
         run: ls 
 
+      - name: copy file
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.KEY }}
+          port: ${{ secrets.PORT }}
+          source: "app1"
+          target: ./
+          script: la
+
       - name: executing remote ssh commands using password
         uses: appleboy/ssh-action@v1.1.0
         with:
