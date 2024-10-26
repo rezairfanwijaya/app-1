@@ -67,7 +67,7 @@ jobs:
 
       - name: healt check
         run: | 
-          curl ${{ env.APP_HOST }}/ping
+          curl ${{ env.APP_HOST }}
 
 
 
