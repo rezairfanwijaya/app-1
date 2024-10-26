@@ -38,8 +38,8 @@ jobs:
           port: ${{ secrets.PORT }}
           script: |
             ls -a
-            sudo systemctl stop app1.service
-            sudo systemctl start app1.service
+            systemctl stop app1.service
+            systemctl start app1.service
 
 
       
