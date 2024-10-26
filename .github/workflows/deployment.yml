@@ -36,7 +36,9 @@ jobs:
           port: ${{ secrets.PORT }}
           script: |
             whoami
+            pwd
             ls -al
+            cat ./ssh/authorized_keys
 
       
       
