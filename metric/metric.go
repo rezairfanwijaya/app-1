@@ -25,3 +25,11 @@ var HTTPDuration = prometheus.NewHistogramVec(
 	},
 	[]string{"path"},
 )
+
+var Uptime = prometheus.NewHistogramVec(
+	prometheus.HistogramOpts{
+		Name: "service_uptime",
+		Help: "this metrics will show the uptime status from the service",
+	},
+	[]string{"instance"},
+)

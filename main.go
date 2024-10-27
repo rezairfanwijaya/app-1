@@ -1,8 +1,10 @@
 package main
 
 import (
+	"bytes"
 	"log"
 	"net/http"
+	"os/exec"
 	"strconv"
 	"time"
 
@@ -27,6 +29,7 @@ func init() {
 	_ = prometheus.Register(metric.HTTPRequestTotal)
 	_ = prometheus.Register(metric.HTTPResponse)
 	_ = prometheus.Register(metric.HTTPDuration)
+	_ = prometheus.Register(metric.Uptime)
 }
 
 func prometheusMiddleware(next http.Handler) http.Handler {
@@ -50,6 +53,24 @@ func prometheusMiddleware(next http.Handler) http.Handler {
 	})
 }
 
+func trackUpTime() {
+	var hostname bytes.Buffer
+	cmd := exec.Command("hostname")
+	cmd.Stdout = &hostname
+	err := cmd.Run()
+	if err != nil {
+		log.Fatalf("failed running command to get hostname, err: %s", err)
+		return
+	}
+
+	timer := prometheus.NewTimer(metric.Uptime.WithLabelValues(hostname.String()))
+	ticker := time.NewTicker(3 * time.Second)
+
+	for range ticker.C {
+		timer.ObserveDuration()
+	}
+}
+
 func main() {
 	router := mux.NewRouter()
 	router.Path("/metrics").Handler(promhttp.Handler())
@@ -65,6 +86,7 @@ func main() {
 	router.HandleFunc("/cars", handler.GetCarList)
 	router.HandleFunc("/users", handler.GetUserList)
 
+	go trackUpTime()
 	if err := http.ListenAndServe(":4545", router); err != nil {
 		log.Fatalf("failed serve server on port 4545, err: %s", err)
 	}
