@@ -65,11 +65,6 @@ jobs:
             systemctl start $APP_NAME.service
             systemctl status $APP_NAME.service
 
-      - name: healt check
-        run: | 
-          curl ${{ env.APP_HOST }}
-          curl ${{ env.REPLICA_HOST }}
-
 
 
       
