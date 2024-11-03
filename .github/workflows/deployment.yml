@@ -68,6 +68,7 @@ jobs:
       - name: healt check
         run: | 
           curl ${{ env.APP_HOST }}
+          curl ${{ env.REPLICA_HOST }}
 
 
 
