@@ -41,7 +41,7 @@ jobs:
       - name: copy file
         uses: appleboy/scp-action@v0.1.7
         with:
-          host: ${{ secrets.HOST }}
+          host: ${{ secrets.HOST }},${{ secrets.REPLICA_HOST }}
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.KEY }}
           port: ${{ secrets.PORT }}
@@ -53,7 +53,7 @@ jobs:
         env:
           APP_NAME: ${{ env.APP_NAME }}
         with:
-          host: ${{ secrets.HOST }}
+          host: ${{ secrets.HOST }},${{ secrets.REPLICA_HOST }}
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.KEY }}
           port: ${{ secrets.PORT }}
