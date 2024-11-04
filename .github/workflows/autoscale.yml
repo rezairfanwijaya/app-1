@@ -1,4 +1,4 @@
-name: Deployment
+name: Autoscale
 
 on: 
   workflow_dispatch:
@@ -55,6 +55,12 @@ jobs:
       - name: Build Docker image
         run: |
           docker build -t gcr.io/${{ secrets.GCP_PROJECT_ID }}/app1 . 
+
+      - name: Authenticate to Google Cloud
+      run: |
+        echo ${{ secrets.GCP_SA_KEY }} | base64 --decode > ${HOME}/gcloud-service-key.json
+        gcloud auth activate-service-account --key-file ${HOME}/gcloud-service-key.json
+        gcloud auth configure-docker
 
       - name: Push Docker image
         run: |
