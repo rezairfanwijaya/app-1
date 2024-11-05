@@ -2,9 +2,6 @@ name: Deployment
 
 on: 
   workflow_dispatch:
-  push: 
-    brances:
-      - main
 
 env:
   APP_NAME: ${{ vars.APP_NAME }}

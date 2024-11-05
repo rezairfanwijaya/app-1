@@ -2,6 +2,9 @@ name: Autoscale
 
 on: 
   workflow_dispatch:
+  push: 
+    brances:
+      - main
 
 env:
   APP_NAME: ${{ vars.APP_NAME }}
@@ -51,7 +54,6 @@ jobs:
 
       - name: Build Docker image
         run: |
-          docker build -t gcr.io/${{ secrets.GCP_PROJECT_ID }}/app1 . 
           docker build -t ${{ secrets.ARTIFACT_REGISTRY_LOCATION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/${{ secrets.ARTIFACT_REGISTRY_REPO }}/app1:$GITHUB_SHA .
 
 
@@ -61,24 +63,9 @@ jobs:
           gcloud auth activate-service-account --key-file ${HOME}/gcloud-service-key.json
           gcloud auth configure-docker
 
-      - name: Push Docker image
+      - name: Push Docker image to Artifact Registry
         run: |
-          docker push gcr.io/${{ secrets.GCP_PROJECT_ID }}/app1
-
-      - name: Create or update instance template
-        run: |
-          gcloud compute instance-templates create go-app1-autoscale-cicd \
-            --machine-type=1-standard-1 \
-            --image=gcr.io/${{ secrets.GCP_PROJECT_ID }}/app1 \
-            --network=bab-lb-network \
-            --subnet=lb-jakarta \
-            --tags=lb-backend,allow-ssh
-      
-      - name: Update Managed Instance Group
-        run: |
-          gcloud compute instance-groups managed rolling-action start-update go-app1-autoscale-cicd \
-            --version=template=go-app1-autoscale-cicd \
-            --zone=asia-southeast2-a
+          docker push ${{ secrets.ARTIFACT_REGISTRY_LOCATION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/${{ secrets.ARTIFACT_REGISTRY_REPO }}/my-app:$GITHUB_SHA
 
   
     
