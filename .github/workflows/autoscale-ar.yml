@@ -66,7 +66,6 @@ jobs:
           gcloud config set project ${{ secrets.GCP_PROJECT_ID }}
           gcloud auth configure-docker asia-southeast2-docker.pkg.dev
 
-
       - name: Push Docker image to Artifact Registry
         run: |
           docker push asia-southeast2-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/${{ secrets.ARTIFACT_REGISTRY_REPO }}/app1:$GITHUB_SHA
@@ -74,6 +73,7 @@ jobs:
       - name: Create or update instance template
         run: |
           gcloud compute instance-templates create go-app1-autoscale-cicd \
+            --project=${{ secrets.GCP_PROJECT_ID }} \
             --machine-type=1-standard-1 \
             --image=asia-southeast2-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/${{ secrets.ARTIFACT_REGISTRY_REPO }}/app1:$GITHUB_SHA \
             --network=bab-lb-network \
