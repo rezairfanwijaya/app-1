@@ -72,6 +72,7 @@ jobs:
 
       - name: Create or update instance template
         run: |
+          echo $GITHUB_SHA
           gcloud compute instance-templates create go-app1-autoscale-cicd \
             --project=${{ secrets.GCP_PROJECT_ID }} \
             --machine-type=1-standard-1 \
