@@ -77,6 +77,7 @@ jobs:
             --machine-type=1-standard-1 \
             --image=asia-southeast2-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/${{ secrets.ARTIFACT_REGISTRY_REPO }}/app1:$GITHUB_SHA \
             --network=bab-lb-network \
+            --region=asia-southeast2 \
             --subnet=lb-jakarta \
             --tags=lb-backend,allow-ssh
 
