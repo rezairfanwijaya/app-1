@@ -1,4 +1,4 @@
-name: Autoscale
+name: Autoscale Artifact Registry
 
 on: 
   workflow_dispatch:
