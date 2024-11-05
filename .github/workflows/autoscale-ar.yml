@@ -75,7 +75,7 @@ jobs:
           echo $GITHUB_SHA
           gcloud compute instance-templates create go-app1-autoscale-cicd \
             --project=${{ secrets.GCP_PROJECT_ID }} \
-            --machine-type=1-standard-1 \
+            --machine-type=n1-standard-1 \
             --image=asia-southeast2-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/${{ secrets.ARTIFACT_REGISTRY_REPO }}/app1:$GITHUB_SHA \
             --network=bab-lb-network \
             --region=asia-southeast2 \
