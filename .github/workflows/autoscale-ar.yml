@@ -84,7 +84,3 @@ jobs:
           gcloud compute instance-templates create-with-container $TEMPLATE_NAME \
             --container-image=asia-southeast2-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/${{ secrets.ARTIFACT_REGISTRY_REPO }}/app1:latest \
             --machine-type=n1-standard-1 \
-            --subnet=lb-jakarta \
-            --region=asia-southeast2 \ 
-            --tags=allow-ssh,lb-backend
-    
