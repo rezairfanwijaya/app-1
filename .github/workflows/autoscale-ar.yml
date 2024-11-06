@@ -83,5 +83,5 @@ jobs:
           TEMPLATE_NAME="go-app1-autoscale-cicd-$(date +%Y%m%d%H%M%S)"
           gcloud compute instance-templates create-with-container $TEMPLATE_NAME \
             --container-image=asia-southeast2-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/${{ secrets.ARTIFACT_REGISTRY_REPO }}/app1:latest \
-            --network-interface=network=bab-lb-backend,subnet=lb-jakart
+            --network-interface=network=bab-lb-backend,subnet=lb-jakarta
             --machine-type=n1-standard-1 \
