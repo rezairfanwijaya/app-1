@@ -54,7 +54,7 @@ jobs:
 
       - name: Build Docker image
         run: |
-          docker build -t asia-southeast2-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/${{ secrets.ARTIFACT_REGISTRY_REPO }}/app1:$GITHUB_SHA .
+          docker build -t asia-southeast2-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/${{ secrets.ARTIFACT_REGISTRY_REPO }}/app1:latest .
           
       - name: Authenticate with Google Cloud
         uses: google-github-actions/auth@v1
@@ -68,16 +68,15 @@ jobs:
 
       - name: Push Docker image to Artifact Registry
         run: |
-          docker push asia-southeast2-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/${{ secrets.ARTIFACT_REGISTRY_REPO }}/app1:$GITHUB_SHA
+          docker push asia-southeast2-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/${{ secrets.ARTIFACT_REGISTRY_REPO }}/app1:latest
 
       - name: Create or update instance template
         run: |
-          echo $GITHUB_SHA
           gcloud compute instance-templates create go-app1-autoscale-cicd-v3 \
             --project=${{ secrets.GCP_PROJECT_ID }} \
             --machine-type=n1-standard-1 \
             --image-project=${{ secrets.GCP_PROJECT_ID }} \
-            --image=asia-southeast2-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/${{ secrets.ARTIFACT_REGISTRY_REPO }}/app1:$GITHUB_SHA \
+            --image=asia-southeast2-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/${{ secrets.ARTIFACT_REGISTRY_REPO }}/app1:latest \
             --network=bab-lb-network \
             --region=asia-southeast2 \
             --subnet=lb-jakarta \
