@@ -84,7 +84,6 @@ jobs:
           --container-image=asia-southeast2-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/${{ secrets.ARTIFACT_REGISTRY_REPO }}/app1:latest \
           --machine-type=n1-standard-1 \
           --network-interface=network-tier=PREMIUM,stack-type=IPV4_ONLY,subnet=lb-jakarta \
-          --instance-template-region=asia-southeast2 \
           --region=asia-southeast2 \ 
           --tags=allow-ssh,lb-backend
     
