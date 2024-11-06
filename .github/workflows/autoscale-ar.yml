@@ -80,7 +80,7 @@ jobs:
 
       - name: Create instance template based on docker image
         run: |
-          TEMPLATE_NAME="go-app1-autoscale-cicd-$(date +%Y%m%d%H%M%S)"
+          TEMPLATE_NAME="go-app1-autoscale-cicd-$(date +%Y-%m-%d-%H-%M-%S)"
           gcloud compute instance-templates create-with-container $TEMPLATE_NAME \
             --container-image=asia-southeast2-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/${{ secrets.ARTIFACT_REGISTRY_REPO }}/app1:latest \
             --region=asia-southeast2 \
