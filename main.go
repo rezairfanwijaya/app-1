@@ -78,7 +78,7 @@ func main() {
 
 	router.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusOK)
-		resp := response.Success{Data: "pong app-1"}
+		resp := response.Success{Data: "pong app-1 updated with new version"}
 		res, _ := resp.ToJSON()
 		_, _ = w.Write(res)
 	})
