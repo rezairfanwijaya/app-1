@@ -80,10 +80,11 @@ jobs:
 
       - name: Create instance template based on docker image
         run: |
-          gcloud compute instance-templates create-with-container go-app1-autoscale-cicd-v3 \
-          --container-image=asia-southeast2-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/${{ secrets.ARTIFACT_REGISTRY_REPO }}/app1:latest \
-          --machine-type=n1-standard-1 \
-          --network-interface=network-tier=PREMIUM,stack-type=IPV4_ONLY,subnet=lb-jakarta \
-          --region=asia-southeast2 \ 
-          --tags=allow-ssh,lb-backend
+          TEMPLATE_NAME="go-app1-autoscale-cicd-${GITHUB_SHA:0:8}"
+          gcloud compute instance-templates create-with-container $TEMPLATE_NAME \
+            --container-image=asia-southeast2-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/${{ secrets.ARTIFACT_REGISTRY_REPO }}/app1:latest \
+            --machine-type=n1-standard-1 \
+            --network-interface=network-tier=PREMIUM,stack-type=IPV4_ONLY,subnet=lb-jakarta \
+            --region=asia-southeast2 \ 
+            --tags=allow-ssh,lb-backend
     
