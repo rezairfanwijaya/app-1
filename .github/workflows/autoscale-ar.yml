@@ -54,9 +54,12 @@ jobs:
       - name: Set up Google Cloud SDK
         uses: google-github-actions/setup-gcloud@v2
 
+      - name: Set the TAG value
+        run: |
+          TAG="version-$(date +%Y-%m-%d-%H-%M-%S)"
+          echo "TAG=$TAG" >> $GITHUB_ENV  # Set TAG as an environment variable
+
       - name: Build Docker image
-        env:
-          TAG: ${{ env.TAG }}
         run: |
           docker build -t asia-southeast2-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/${{ secrets.ARTIFACT_REGISTRY_REPO }}/app1:$TAG .
       
@@ -66,8 +69,6 @@ jobs:
           gcloud auth configure-docker asia-southeast2-docker.pkg.dev
 
       - name: Push Docker image to Artifact Registry
-        env:
-          TAG: ${{ env.TAG }}
         run: |
           DOCKER_IMAGE_TAG="version-$(date +%Y-%m-%d-%H-%M-%S)"
           echo $DOCKER_IMAGE_TAG
