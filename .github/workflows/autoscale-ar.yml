@@ -66,7 +66,7 @@ jobs:
         run: |
           DOCKER_IMAGE_TAG="version-$(date +%Y-%m-%d-%H-%M-%S)"
           echo $DOCKER_IMAGE_TAG
-          docker push asia-southeast2-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/${{ secrets.ARTIFACT_REGISTRY_REPO }}/app:$DOCKER_IMAGE_TAG
+          docker push asia-southeast2-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/${{ secrets.ARTIFACT_REGISTRY_REPO }}/app1:$DOCKER_IMAGE_TAG
 
       - name: Create instance template based on docker image
         run: |
