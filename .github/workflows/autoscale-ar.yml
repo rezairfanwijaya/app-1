@@ -64,7 +64,8 @@ jobs:
 
       - name: Push Docker image to Artifact Registry
         run: |
-          docker push asia-southeast2-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/${{ secrets.ARTIFACT_REGISTRY_REPO }}/app1:latest
+          DOCKER_IMAGE_NAME="app1-$(date +%Y-%m-%d-%H-%M-%S)"
+          docker push asia-southeast2-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/${{ secrets.ARTIFACT_REGISTRY_REPO }}/$DOCKER_IMAGE_NAME
 
       # - name: Create or update instance template
       #   run: |
@@ -87,3 +88,10 @@ jobs:
             --network-interface=network=bab-lb-network,subnet=lb-jakarta \
             --tags=allow-ssh,lb-backend \
             --machine-type=n1-standard-1 
+
+      - name: Update managed instance group
+        run: |
+          gcloud compute instance-groups managed rolling-action start-update go-app1-group-autoscale-cicd-v3 \
+          --version=template=$TEMPLATE_NAME \
+          --max-unavailable=1 \ 
+          --replacement-method=recreate
