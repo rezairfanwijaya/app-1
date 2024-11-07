@@ -59,6 +59,7 @@ jobs:
           CURRENT_DATE=$CURRENT_DATE
           TAG="version-$CURRENT_DATE"
           TEMPLATE_NAME="go-app1-autoscale-cicd-$CURRENT_DATE"
+          echo $TEMPLATE_NAME
           echo "TAG=$TAG" >> $GITHUB_ENV  # Set TAG as an environment variable
           echo "TEMPLATE_NAME=$TEMPLATE_NAME" >> $GITHUB_ENV  # Set TAG as an environment variable
 
