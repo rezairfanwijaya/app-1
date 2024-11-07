@@ -57,7 +57,9 @@ jobs:
       - name: Set the TAG value
         run: |
           TAG="version-$(date +%Y-%m-%d-%H-%M-%S)"
+          TEMPLATE_NAME="go-app1-autoscale-cicd-$(date +%Y-%m-%d-%H-%M-%S)"
           echo "TAG=$TAG" >> $GITHUB_ENV  # Set TAG as an environment variable
+          echo "TEMPLATE_NAME=$TEMPLATE_NAME" >> $GITHUB_ENV  # Set TAG as an environment variable
 
       - name: Build Docker image
         run: |
@@ -76,7 +78,6 @@ jobs:
 
       - name: Create instance template based on docker image
         run: |
-          TEMPLATE_NAME="go-app1-autoscale-cicd-$(date +%Y-%m-%d-%H-%M-%S)"
           gcloud compute instance-templates create-with-container $TEMPLATE_NAME \
             --container-image=asia-southeast2-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/${{ secrets.ARTIFACT_REGISTRY_REPO }}/app1:latest \
             --region=asia-southeast2 \
@@ -87,9 +88,9 @@ jobs:
       - name: Update managed instance group
         run: |
           gcloud compute instance-groups managed rolling-action start-update go-app1-group-autoscale-cicd-v3 \
-          --version=template='$TEMPLATE_NAME' \
-          --max-unavailable=1 \ 
-          --replacement-method=recreate
+            --version=template=$TEMPLATE_NAME \
+            --max-unavailable=1 \ 
+            --replacement-method=recreate
 
 
  # - name: Create or update instance template
