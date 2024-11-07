@@ -56,8 +56,9 @@ jobs:
 
       - name: Set the TAG value
         run: |
-          TAG="version-$(date +%Y-%m-%d-%H-%M-%S)"
-          TEMPLATE_NAME="go-app1-autoscale-cicd-$(date +%Y-%m-%d-%H-%M-%S)"
+          CURRENT_DATE=$CURRENT_DATE
+          TAG="version-$CURRENT_DATE"
+          TEMPLATE_NAME="go-app1-autoscale-cicd-$CURRENT_DATE"
           echo "TAG=$TAG" >> $GITHUB_ENV  # Set TAG as an environment variable
           echo "TEMPLATE_NAME=$TEMPLATE_NAME" >> $GITHUB_ENV  # Set TAG as an environment variable
 
@@ -72,8 +73,6 @@ jobs:
 
       - name: Push Docker image to Artifact Registry
         run: |
-          DOCKER_IMAGE_TAG="version-$(date +%Y-%m-%d-%H-%M-%S)"
-          echo $DOCKER_IMAGE_TAG
           docker push asia-southeast2-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/${{ secrets.ARTIFACT_REGISTRY_REPO }}/app1:$TAG
 
       - name: Create instance template based on docker image
