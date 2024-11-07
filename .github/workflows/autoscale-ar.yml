@@ -88,6 +88,7 @@ jobs:
         run: |
           gcloud compute instance-groups managed rolling-action start-update go-app1-group-autoscale-cicd-v3 \
             --version=template=$TEMPLATE_NAME \
+            --project=${{ secrets.GCP_PROJECT_ID }} \
             --max-unavailable=1 \
             --replacement-method=recreate \
-            --region=asia-southeast2 
+            --zone=asia-southeast2-a 
