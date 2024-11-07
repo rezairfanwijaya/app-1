@@ -90,5 +90,5 @@ jobs:
             --version=template=$TEMPLATE_NAME \
             --max-unavailable=1 \
             --replacement-method=recreate \
-            --region=asia-southeast2
+            --region=asia-southeast2 \
             --zone=a
