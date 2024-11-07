@@ -9,7 +9,6 @@ on:
 env:
   APP_NAME: ${{ vars.APP_NAME }}
   APP_HOST: ${{ vars.APP_HOST }}
-  TAG: $(date +%Y-%m-%d-%H-%M-%S)
 
 jobs:
   build:
@@ -56,7 +55,7 @@ jobs:
 
       - name: Set the TAG value
         run: |
-          CURRENT_DATE=$CURRENT_DATE
+          CURRENT_DATE=$(date +%Y-%m-%d-%H-%M-%S)
           TAG="version-$CURRENT_DATE"
           TEMPLATE_NAME="go-app1-autoscale-cicd-$CURRENT_DATE"
           echo $TEMPLATE_NAME
