@@ -79,7 +79,7 @@ jobs:
       - name: Create instance template based on docker image
         run: |
           gcloud compute instance-templates create-with-container $TEMPLATE_NAME \
-            --container-image=asia-southeast2-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/${{ secrets.ARTIFACT_REGISTRY_REPO }}/app1:latest \
+            --container-image=asia-southeast2-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/${{ secrets.ARTIFACT_REGISTRY_REPO }}/app1:$TAG \
             --region=asia-southeast2 \
             --network-interface=network=bab-lb-network,subnet=lb-jakarta \
             --tags=allow-ssh,lb-backend \
@@ -91,16 +91,3 @@ jobs:
             --version=template=$TEMPLATE_NAME \
             --max-unavailable=1 \ 
             --replacement-method=recreate
-
-
- # - name: Create or update instance template
-      #   run: |
-      #     gcloud compute instance-templates create go-app1-autoscale-cicd-v3 \
-      #       --project=${{ secrets.GCP_PROJECT_ID }} \
-      #       --machine-type=n1-standard-1 \
-      #       --image-project=${{ secrets.GCP_PROJECT_ID }} \
-      #       --image=asia-southeast2-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/${{ secrets.ARTIFACT_REGISTRY_REPO }}/app1:latest \
-      #       --network=bab-lb-network \
-      #       --region=asia-southeast2 \
-      #       --subnet=lb-jakarta \
-      #       --tags=lb-backend,allow-ssh 
